@@ -7,7 +7,7 @@ A simple script & suggested pipeline for capturing the exit code and journaling 
 * Reference it with a pipeline like this
 
 ```
- * * * * * ubuntu commands 2>&1 | logger -t "test.service"; ./bin/exit-check.sh ${PIPESTATUS[0]} test.service
+ * * * * * ubuntu commands 2>&1 | logger -t "test.service"; ./bin/exit-check.sh "$${PIPESTATUS[0]}" test.service
 ```
 
 
@@ -19,7 +19,7 @@ This pipeline writes logs to journald, which most log aggregators (Datadog etc) 
 test.sh provides a quick mechanism for testing. Just update `test.sh` to your normal user. Run it normally with the pipeline for success, sudo for a failure.
 
 ```
-sudo ./bin/test.sh 2>&1 | logger -t "test.service"; ./bin/exit-check.sh ${PIPESTATUS[0]} test.service
+sudo ./bin/test.sh 2>&1 | logger -t "test.service"; ./bin/exit-check.sh "$${PIPESTATUS[0]}"} test.service
 ```
 
 ```
@@ -28,7 +28,7 @@ Mar 28 19:33:39 devel test.service[2029]: {"ts": "2019-03-28 19:33:39", "level":
 ```
 
 ```
-./bin/test.sh 2>&1 | logger -t "test.service"; ./bin/exit-check.sh ${PIPESTATUS[0]} test.service
+./bin/test.sh 2>&1 | logger -t "test.service"; ./bin/exit-check.sh "$${PIPESTATUS[0]}" test.service
 ```
 
 ```
